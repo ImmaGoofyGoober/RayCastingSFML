@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
 
-#include "../include/renderer.hpp"
+#include "renderer.hpp"
 
 // ADD MULTITHREADING, AND ADD PERFORMANCE BASED COLLISION CHECKING BY SPLITTING WINDOW INTO GRIDS AND CHECKING EACH GRID ONLY IF NEEDED
 
