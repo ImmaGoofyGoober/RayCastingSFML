@@ -84,12 +84,14 @@ private:
 	sf::RectangleShape square_{};
 	ShapeType shapeType_{ ShapeType::SQUARE };
 	const float sideLength_{};
+	const sf::Angle rotationAngle_{};
 	sf::Color color_{};
-
+	
 public:
 	Square(float sideLength, sf::Vector2f position, sf::Color color, sf::Angle rotationAngle)
 		: square_(sf::Vector2f{ sideLength, sideLength }),
 		sideLength_(sideLength),
+		rotationAngle_(rotationAngle),
 		color_(color)
 	{
 		square_.setFillColor(color);
@@ -101,6 +103,7 @@ public:
 	const sf::Drawable& GetShape() const override;
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
+	sf::Angle GetRotationAngle() const;
 
 	// Setter Functions
 	void SetPosition(const sf::Vector2f position) override;

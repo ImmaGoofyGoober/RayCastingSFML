@@ -2,6 +2,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include<SFML/Graphics/Drawable.hpp>
+#include <SFML/System/Angle.hpp>
 
 #include "scene.hpp"
 
@@ -55,3 +56,7 @@ sf::Vector2f Square::GetPosition() const {
 void Square::SetPosition(const sf::Vector2f position) {
 	square_.setPosition(position);
 }
+
+sf::Angle Square::GetRotationAngle() const {
+	return rotationAngle_;
+};
