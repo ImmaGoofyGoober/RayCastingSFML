@@ -11,6 +11,7 @@
 #include <SFML/Window/WindowEnums.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/System/Angle.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
@@ -22,14 +23,16 @@
 
 void Renderer::InitializeScene() {
     // Circle
-    sceneObjects.push_back(std::make_unique<OrbitingCircle>(30.f, 180.f, 1.f, 0.001f, sf::Color::Blue));
-   // sceneObjects.push_back(std::make_unique<OrbitingCircle>(10.f, 90.f, 1.f, 0.002f, sf::Color::Red));
+    sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.001f));
+    sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{ 0.f,0.f }, sf::Color::Blue));
+   // Square
+    sceneObjects.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f)));
 }
 
 void Renderer::StartSimulation() {
     std::string title = "Ray Casting Simulation";
     sf::RenderWindow window(sf::VideoMode({1280, 720}), title, sf::Style::Default);
-	window.setFramerateLimit(240);
+	window.setFramerateLimit(60);
     
     sf::Clock clock;
     sf::Clock titleClock;
@@ -70,8 +73,14 @@ void Renderer::StartSimulation() {
         raycaster.UpdateRayCollisions(sceneObjects);
 
         // OptimiZEEEEEEEEEEEEEEEEEEEEEEEEEE
-        for (size_t i = 0; i < sceneObjects.size(); ++i) {
-           // sceneObjects[i]->SetPosition(raycaster.GetRaySourcePosition());
+        for (const auto& sceneObject : sceneObjects) {
+            if (sceneObject->GetShapeType() == ShapeType::CIRCLE) {
+                Circle* circle = dynamic_cast<Circle*>(sceneObject.get());
+
+                if (circle->IsOrbiting()) {
+                    circle->SetPosition(raycaster.GetRaySourcePosition());
+                }
+            }
         }
 
         // Draw

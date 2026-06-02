@@ -6,26 +6,52 @@
 #include "scene.hpp"
 
 
-// Orbiting Circle
-const sf::Drawable& OrbitingCircle::GetShape() const {
-	return orbitingCircle;
+// Circle
+const sf::Drawable& Circle::GetShape() const {
+	return circle_;
 }
 
-ShapeType OrbitingCircle::GetShapeType() const {
-	return shapeType;
+ShapeType Circle::GetShapeType() const {
+	return shapeType_;
 }
 
-sf::Vector2f OrbitingCircle::GetPosition() const{
-	return orbitingCircle.getPosition();
+sf::Vector2f Circle::GetPosition() const{
+	return circle_.getPosition();
 }
 
-float OrbitingCircle::GetRadius() const {
-	return orbitingCircleRadius;
+float Circle::GetRadius() const {
+	return radius_;
 }
 
-void OrbitingCircle::SetPosition(const sf::Vector2f raySourcePosition) {
-	orbitAngle += orbitSpeed;
-	float circleX = raySourcePosition.x + std::cos(orbitAngle) * orbitDistance;
-	float circleY = raySourcePosition.y + std::sin(orbitAngle) * orbitDistance;
-	orbitingCircle.setPosition({ circleX, circleY });
+bool Circle::IsOrbiting() const {
+	return isOrbiting_;
+};
+
+void Circle::SetPosition(const sf::Vector2f position) {
+	if (isOrbiting_) {
+		orbitAngle_ += orbitSpeed_;
+		float circleX = position.x + std::cos(orbitAngle_) * orbitDistance_;
+		float circleY = position.y + std::sin(orbitAngle_) * orbitDistance_;
+		circle_.setPosition({ circleX, circleY });
+	}
+	else {
+		circle_.setPosition(position);
+	}
+}
+
+// Square
+const sf::Drawable& Square::GetShape() const {
+	return square_;
+}
+
+ShapeType Square::GetShapeType() const {
+	return shapeType_;
+}
+
+sf::Vector2f Square::GetPosition() const {
+	return square_.getPosition();
+}
+
+void Square::SetPosition(const sf::Vector2f position) {
+	square_.setPosition(position);
 }

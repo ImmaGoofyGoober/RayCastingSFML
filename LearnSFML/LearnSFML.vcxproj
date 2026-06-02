@@ -138,9 +138,9 @@
     <ClCompile Include="Src\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Includes\raycaster.hpp" />
-    <ClInclude Include="Includes\scene.hpp" />
+    <ClInclude Include="include\raycaster.hpp" />
     <ClInclude Include="include\renderer.hpp" />
+    <ClInclude Include="include\scene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
