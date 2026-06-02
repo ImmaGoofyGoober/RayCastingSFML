@@ -24,7 +24,7 @@ public:
 	virtual sf::Vector2f GetPosition() const = 0;
 
 	// Setter Functions
-	virtual void SetPosition(const sf::Vector2f position) = 0;
+	virtual void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) = 0;
 
 	virtual ~SceneObject() = default;
 };
@@ -42,25 +42,29 @@ private:
 	float orbitAngle_{};
 	const float orbitSpeed_{};
 
+	bool isMoving_{};
+
 public:
-	Circle(float radius, sf::Vector2f position, sf::Color color)
+	Circle(float radius, sf::Vector2f position, sf::Color color, bool isMoving)
 		: circle_(radius),
 		radius_(radius),
-		color_(color)
+		color_(color),
+		isMoving_(isMoving)
 	{
 		circle_.setFillColor(color_);
 		circle_.setOrigin({ radius_, radius_ });
 		circle_.setPosition(position);
 	}
 
-	Circle(float radius, sf::Vector2f orbitPosition, sf::Color color, float orbitDistance, float orbitAngle, float orbitSpeed)
+	Circle(float radius, sf::Vector2f orbitPosition, sf::Color color, float orbitDistance, float orbitAngle, float orbitSpeed, bool isMoving)
 		: circle_(radius),
 		radius_(radius),
 		color_(color),
 		isOrbiting_(true),
 		orbitDistance_(orbitDistance),
 		orbitAngle_(orbitAngle),
-		orbitSpeed_(orbitSpeed)
+		orbitSpeed_(orbitSpeed),
+		isMoving_(isMoving)
 	{
 		circle_.setFillColor(color);
 		circle_.setOrigin({ radius, radius });
@@ -75,7 +79,7 @@ public:
 	bool IsOrbiting() const;
 
 	// Setter Functions
-	void SetPosition(const sf::Vector2f position) override;
+	void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) override;
 };
 
 // Square
@@ -86,13 +90,37 @@ private:
 	const float sideLength_{};
 	const sf::Angle rotationAngle_{};
 	sf::Color color_{};
+
+	const bool isOrbiting_{ false };
+	const float orbitDistance_{};
+	float orbitAngle_{};
+	const float orbitSpeed_{};
 	
+	bool isMoving_{};
+
 public:
-	Square(float sideLength, sf::Vector2f position, sf::Color color, sf::Angle rotationAngle)
+	Square(float sideLength, sf::Vector2f position, sf::Color color, sf::Angle rotationAngle, bool isMoving)
 		: square_(sf::Vector2f{ sideLength, sideLength }),
 		sideLength_(sideLength),
 		rotationAngle_(rotationAngle),
-		color_(color)
+		color_(color),
+		isMoving_(isMoving)
+	{
+		square_.setFillColor(color);
+		square_.setPosition(position);
+		square_.setRotation(rotationAngle);
+	}
+
+	Square(float sideLength, sf::Vector2f position, sf::Color color, sf::Angle rotationAngle, float orbitDistance, float orbitAngle, float orbitSpeed, bool isMoving)
+		: square_(sf::Vector2f{ sideLength, sideLength }),
+		sideLength_(sideLength),
+		rotationAngle_(rotationAngle),
+		color_(color),
+		isOrbiting_(true),
+		orbitDistance_(orbitDistance),
+		orbitAngle_(orbitAngle),
+		orbitSpeed_(orbitSpeed),
+		isMoving_(isMoving)
 	{
 		square_.setFillColor(color);
 		square_.setPosition(position);
@@ -104,8 +132,9 @@ public:
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
 	sf::Angle GetRotationAngle() const;
+	bool IsOrbiting() const;
 
 	// Setter Functions
-	void SetPosition(const sf::Vector2f position) override;
+	void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) override;
 };
 #endif

@@ -23,10 +23,10 @@
 
 void Renderer::InitializeScene() {
     // Circle
-    sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.001f));
+    sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.004f, true));
 
-   // Square
-    sceneObjects.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f)));
+   // Square 
+    sceneObjects.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
 }
 
 void Renderer::StartSimulation() {
@@ -37,7 +37,7 @@ void Renderer::StartSimulation() {
     sf::Clock clock;
     sf::Clock titleClock;
 
-    Raycaster raycaster(window.getSize());
+    RayCaster rayCaster(window.getSize());
 
     while (window.isOpen()) {
         while (const std::optional<sf::Event> event = window.pollEvent()) {
@@ -65,22 +65,15 @@ void Renderer::StartSimulation() {
             sf::Vector2i mouseScreenPosition = sf::Mouse::getPosition(window);
             sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mouseScreenPosition);
 
-            raycaster.UpdateRaySource(mouseWorldPosition);
-            raycaster.UpateRayPositions();
+            rayCaster.UpdateRaySource(mouseWorldPosition);
+            rayCaster.UpateRayPositions();
         }
 
-        raycaster.UpateRayPositions();
-        raycaster.UpdateRayCollisions(sceneObjects);
+        rayCaster.UpateRayPositions();
+        rayCaster.UpdateRayCollisions(sceneObjects);
 
-        // OptimiZEEEEEEEEEEEEEEEEEEEEEEEEEE
         for (const auto& sceneObject : sceneObjects) {
-            if (sceneObject->GetShapeType() == ShapeType::CIRCLE) {
-                Circle* circle = dynamic_cast<Circle*>(sceneObject.get());
-
-                if (circle->IsOrbiting()) {
-                    circle->SetPosition(raycaster.GetRaySourcePosition());
-                }
-            }
+            sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition());
         }
 
         // Draw
@@ -88,8 +81,8 @@ void Renderer::StartSimulation() {
             window.draw(sO->GetShape());
         }
 
-        window.draw(raycaster.GetRaySource());
-        window.draw(raycaster.GetRayVertices());
+        window.draw(rayCaster.GetRaySource());
+        window.draw(rayCaster.GetRayVertices());
 
         window.display();
 

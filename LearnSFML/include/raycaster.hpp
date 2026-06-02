@@ -13,7 +13,7 @@
 
 #include "scene.hpp"
 
-class Raycaster {
+class RayCaster {
 private:
 	// RaySource
 	sf::CircleShape raySource{};
@@ -26,7 +26,7 @@ private:
 	static constexpr float rayLength{ 300.f };
 
 public:
-	Raycaster(sf::Vector2u windowSize) : raySource(raySourceRadius), rayVertices(sf::PrimitiveType::Lines, rayCount) {
+	RayCaster(sf::Vector2u windowSize) : raySource(raySourceRadius), rayVertices(sf::PrimitiveType::Lines, rayCount) {
 		raySource.setFillColor(sf::Color::Yellow);
 		raySource.setOrigin({ raySource.getRadius(), raySource.getRadius() });
 		raySource.setPosition({ windowSize.x / 2.f, windowSize.y / 2.f });

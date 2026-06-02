@@ -28,14 +28,14 @@ bool Circle::IsOrbiting() const {
 	return isOrbiting_;
 };
 
-void Circle::SetPosition(const sf::Vector2f position) {
+void Circle::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) {
 	if (isOrbiting_) {
 		orbitAngle_ += orbitSpeed_;
-		float circleX = position.x + std::cos(orbitAngle_) * orbitDistance_;
-		float circleY = position.y + std::sin(orbitAngle_) * orbitDistance_;
+		float circleX = orbitPosition.x + std::cos(orbitAngle_) * orbitDistance_;
+		float circleY = orbitPosition.y + std::sin(orbitAngle_) * orbitDistance_;
 		circle_.setPosition({ circleX, circleY });
 	}
-	else {
+	else if(isMoving_){
 		circle_.setPosition(position);
 	}
 }
@@ -53,9 +53,21 @@ sf::Vector2f Square::GetPosition() const {
 	return square_.getPosition();
 }
 
-void Square::SetPosition(const sf::Vector2f position) {
-	square_.setPosition(position);
+void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) {
+	if (isOrbiting_) {
+		orbitAngle_ += orbitSpeed_;
+		float squareX = orbitPosition.x + std::cos(orbitAngle_) * orbitDistance_;
+		float squareY = orbitPosition.y + std::sin(orbitAngle_) * orbitDistance_;
+		square_.setPosition({ squareX, squareY });
+	}
+	else if(isMoving_){
+		square_.setPosition(position);
+	}
 }
+
+bool Square::IsOrbiting() const {
+	return isOrbiting_;
+};
 
 sf::Angle Square::GetRotationAngle() const {
 	return rotationAngle_;

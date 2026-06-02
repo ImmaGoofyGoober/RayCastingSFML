@@ -14,24 +14,24 @@
 
 
 // Ray Source
-const sf::Drawable& Raycaster::GetRaySource() const {
+const sf::Drawable& RayCaster::GetRaySource() const {
     return raySource;
 };
 
-void Raycaster::UpdateRaySource(const sf::Vector2f mousePosition) {
+void RayCaster::UpdateRaySource(const sf::Vector2f mousePosition) {
     raySource.setPosition(mousePosition);
 }
 
-sf::Vector2f Raycaster::GetRaySourcePosition() {
+sf::Vector2f RayCaster::GetRaySourcePosition() {
     return raySource.getPosition();
 }
 
 // Ray
-const sf::Drawable& Raycaster::GetRayVertices() const {
+const sf::Drawable& RayCaster::GetRayVertices() const {
     return rayVertices;
 }
 
-void Raycaster::UpateRayPositions() {
+void RayCaster::UpateRayPositions() {
     for (size_t i = 0; i < rayCount; ++i) {
         float angle = i;
         size_t rayStartIndex = i;
@@ -53,7 +53,7 @@ void Raycaster::UpateRayPositions() {
     }
 }
 
-void Raycaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObject>>& sceneObjects) {
+void RayCaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObject>>& sceneObjects) {
     for (const auto& sceneObject : sceneObjects) {
         for (size_t i = 0; i < rayCount; i += 2) {
             switch (sceneObject->GetShapeType()) {
@@ -63,7 +63,7 @@ void Raycaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObjec
                 break;
             }
             case ShapeType::SQUARE: {
-
+                
                 break;
             }
             default:
