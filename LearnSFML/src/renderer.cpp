@@ -23,10 +23,10 @@
 
 void Renderer::InitializeScene() {
     // Circle
-    sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.004f, true));
+    sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.004f, true));
 
    // Square 
-    sceneObjects.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
+    sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
 }
 
 void Renderer::StartSimulation() {
@@ -46,12 +46,12 @@ void Renderer::StartSimulation() {
             }
             if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (mouseEvent->button == sf::Mouse::Button::Left) {
-                    mouseButtonLeftPressed = true;
+                    mouseButtonLeftPressed_ = true;
                 }
             }
             if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonReleased>()) {
                 if (mouseEvent->button == sf::Mouse::Button::Left) {
-                    mouseButtonLeftPressed = false;
+                    mouseButtonLeftPressed_ = false;
                 }
             }
         }
@@ -61,7 +61,7 @@ void Renderer::StartSimulation() {
         window.clear(sf::Color::Black);
 
         // Update
-        if (mouseButtonLeftPressed) {
+        if (mouseButtonLeftPressed_) {
             sf::Vector2i mouseScreenPosition = sf::Mouse::getPosition(window);
             sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mouseScreenPosition);
 
@@ -70,14 +70,14 @@ void Renderer::StartSimulation() {
         }
 
         rayCaster.UpateRayPositions();
-        rayCaster.UpdateRayCollisions(sceneObjects);
+        rayCaster.UpdateRayCollisions(sceneObjects_);
 
-        for (const auto& sceneObject : sceneObjects) {
+        for (const auto& sceneObject : sceneObjects_) {
             sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition());
         }
 
         // Draw
-        for (const auto& sO : sceneObjects) {
+        for (const auto& sO : sceneObjects_) {
             window.draw(sO->GetShape());
         }
 

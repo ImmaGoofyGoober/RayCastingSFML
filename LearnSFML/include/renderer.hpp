@@ -10,10 +10,10 @@
 class Renderer {
 private:
 	// Scene
-	std::vector<std::unique_ptr<SceneObject>> sceneObjects;
+	std::vector<std::unique_ptr<SceneObject>> sceneObjects_;
 
 	// Simulation
-	bool mouseButtonLeftPressed{ false };
+	bool mouseButtonLeftPressed_{ false };
 
 public:
 	void InitializeScene();

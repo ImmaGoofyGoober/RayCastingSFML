@@ -16,20 +16,20 @@
 class RayCaster {
 private:
 	// RaySource
-	sf::CircleShape raySource{};
-	static constexpr float raySourceRadius{ 35.f };
+	sf::CircleShape raySource_{};
+	static constexpr float raySourceRadius_{ 35.f };
 
 	// Ray
-	sf::VertexArray rayVertices{};
-	static constexpr size_t rayCount{ 2 };
-	static constexpr float rayDistance{ raySourceRadius }; // Distance from center of raySource
-	static constexpr float rayLength{ 300.f };
+	sf::VertexArray rayVertices_{};
+	static constexpr size_t rayCount_{ 2 };
+	static constexpr float rayDistance_{ raySourceRadius_ }; // Distance from center of raySource
+	static constexpr float rayLength_{ 300.f };
 
 public:
-	RayCaster(sf::Vector2u windowSize) : raySource(raySourceRadius), rayVertices(sf::PrimitiveType::Lines, rayCount) {
-		raySource.setFillColor(sf::Color::Yellow);
-		raySource.setOrigin({ raySource.getRadius(), raySource.getRadius() });
-		raySource.setPosition({ windowSize.x / 2.f, windowSize.y / 2.f });
+	RayCaster(sf::Vector2u windowSize) : raySource_(raySourceRadius_), rayVertices_(sf::PrimitiveType::Lines, rayCount_) {
+		raySource_.setFillColor(sf::Color::Yellow);
+		raySource_.setOrigin({ raySource_.getRadius(), raySource_.getRadius() });
+		raySource_.setPosition({ windowSize.x / 2.f, windowSize.y / 2.f });
 
 		UpateRayPositions();
 	}

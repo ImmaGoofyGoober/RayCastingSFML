@@ -20,6 +20,10 @@ sf::Vector2f Circle::GetPosition() const{
 	return circle_.getPosition();
 }
 
+float Circle::GetRayCollisionDistance() const {
+
+};
+
 float Circle::GetRadius() const {
 	return radius_;
 }
@@ -52,6 +56,10 @@ ShapeType Square::GetShapeType() const {
 sf::Vector2f Square::GetPosition() const {
 	return square_.getPosition();
 }
+
+float Square::GetRayCollisionDistance() const {
+
+};
 
 void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) {
 	if (isOrbiting_) {

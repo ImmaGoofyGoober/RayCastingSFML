@@ -15,60 +15,50 @@
 
 // Ray Source
 const sf::Drawable& RayCaster::GetRaySource() const {
-    return raySource;
+    return raySource_;
 };
 
 void RayCaster::UpdateRaySource(const sf::Vector2f mousePosition) {
-    raySource.setPosition(mousePosition);
+    raySource_.setPosition(mousePosition);
 }
 
 sf::Vector2f RayCaster::GetRaySourcePosition() {
-    return raySource.getPosition();
+    return raySource_.getPosition();
 }
 
 // Ray
 const sf::Drawable& RayCaster::GetRayVertices() const {
-    return rayVertices;
+    return rayVertices_;
 }
 
 void RayCaster::UpateRayPositions() {
-    for (size_t i = 0; i < rayCount; ++i) {
+    for (size_t i = 0; i < rayCount_; ++i) {
         float angle = i;
         size_t rayStartIndex = i;
         size_t rayEndIndex = ++i;
 
         // Start of ray
-        float rayStartX = raySource.getPosition().x + std::cos(angle) * rayDistance;
-        float rayStartY = raySource.getPosition().y + std::sin(angle) * rayDistance;
+        float rayStartX = raySource_.getPosition().x + std::cos(angle) * rayDistance_;
+        float rayStartY = raySource_.getPosition().y + std::sin(angle) * rayDistance_;
 
-        rayVertices[rayStartIndex].position = { rayStartX, rayStartY };
-        rayVertices[rayStartIndex].color = sf::Color::Yellow;
+        rayVertices_[rayStartIndex].position = { rayStartX, rayStartY };
+        rayVertices_[rayStartIndex].color = sf::Color::Yellow;
 
         // End of ray
-        float rayEndX = rayStartX + std::cos(angle) * rayLength;
-        float rayEndY = rayStartY + std::sin(angle) * rayLength;
+        float rayEndX = rayStartX + std::cos(angle) * rayLength_;
+        float rayEndY = rayStartY + std::sin(angle) * rayLength_;
 
-        rayVertices[rayEndIndex].position = { rayEndX , rayEndY };
-        rayVertices[rayEndIndex].color = sf::Color::Yellow;
+        rayVertices_[rayEndIndex].position = { rayEndX , rayEndY };
+        rayVertices_[rayEndIndex].color = sf::Color::Yellow;
     }
 }
 
 void RayCaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObject>>& sceneObjects) {
-    for (const auto& sceneObject : sceneObjects) {
-        for (size_t i = 0; i < rayCount; i += 2) {
-            switch (sceneObject->GetShapeType()) {
-            case ShapeType::CIRCLE: {
-                Circle* circle = dynamic_cast<Circle*>(sceneObject.get());
+    for (size_t i = 0; i < rayCount_; ++i) {
+        float closestCollisionDistance{};
 
-                break;
-            }
-            case ShapeType::SQUARE: {
-                
-                break;
-            }
-            default:
-                break;
-            }
+        for (const auto& sceneObject : sceneObjects) {
+
         }
     }
 }
