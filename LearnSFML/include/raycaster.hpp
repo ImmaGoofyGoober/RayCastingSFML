@@ -47,8 +47,3 @@ public:
 };
 
 #endif 
-
-// make ray source orbit static circle
-// allow for rays to collide with other rays
-// right click to move static circle, left click to move ray source (only move circle the mouse is hovering over)
-// Pass reference to scene into updateRays() function to calculate collision with ray's and objects
