@@ -24,7 +24,7 @@
 void Renderer::InitializeScene() {
     // Circle
     sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.001f));
-    sceneObjects.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{ 0.f,0.f }, sf::Color::Blue));
+
    // Square
     sceneObjects.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f)));
 }
