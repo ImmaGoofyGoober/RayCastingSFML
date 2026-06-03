@@ -20,8 +20,8 @@ sf::Vector2f Circle::GetPosition() const{
 	return circle_.getPosition();
 }
 
-float Circle::GetRayCollisionDistance() const {
-
+float Circle::GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const {
+	return 1.f;
 };
 
 float Circle::GetRadius() const {
@@ -57,8 +57,8 @@ sf::Vector2f Square::GetPosition() const {
 	return square_.getPosition();
 }
 
-float Square::GetRayCollisionDistance() const {
-
+float Square::GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const {
+	return 1.f;
 };
 
 void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) {

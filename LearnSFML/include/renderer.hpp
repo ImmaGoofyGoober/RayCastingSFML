@@ -1,5 +1,5 @@
-#ifndef RENDERER_HPP
-#define RENDERER_HPP
+#ifndef RAYCASTER_RENDERER_HPP
+#define RAYCASTER_RENDERER_HPP
 
 #include <memory>
 #include <vector>

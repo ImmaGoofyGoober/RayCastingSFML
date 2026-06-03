@@ -1,5 +1,5 @@
-#ifndef SCENE_HPP
-#define SCENE_HPP
+#ifndef RAYCASTER_SCENE_HPP
+#define RAYCASTER_SCENE_HPP
 
 #include <SFML/System/Vector2.hpp>
 #include<SFML/Graphics/Drawable.hpp>
@@ -22,7 +22,7 @@ public:
 	virtual const sf::Drawable& GetShape() const = 0;
 	virtual ShapeType GetShapeType() const = 0;
 	virtual sf::Vector2f GetPosition() const = 0;
-	virtual float GetRayCollisionDistance() const = 0;
+	virtual float GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const = 0;
 
 	// Setter Functions
 	virtual void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) = 0;
@@ -76,7 +76,7 @@ public:
 	const sf::Drawable& GetShape() const override;
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
-	float GetRayCollisionDistance() const override;
+	float GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const override;
 	float GetRadius() const;
 	bool IsOrbiting() const;
 
@@ -134,7 +134,7 @@ public:
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
 	sf::Angle GetRotationAngle() const;
-	float GetRayCollisionDistance() const override;
+	float GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const override;
 	bool IsOrbiting() const;
 
 	// Setter Functions

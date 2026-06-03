@@ -1,5 +1,5 @@
-#ifndef RAYCASTER_HPP
-#define RAYCASTER_HPP
+#ifndef RAYCASTER_RAYCASTER_HPP
+#define RAYCASTER_RAYCASTER_HPP
 
 #include <memory>
 #include <vector>
@@ -21,7 +21,7 @@ private:
 
 	// Ray
 	sf::VertexArray rayVertices_{};
-	static constexpr size_t rayCount_{ 2 };
+	static constexpr size_t rayCount_{ 6 }; // Represents vertex count, every two vertices is one ray
 	static constexpr float rayDistance_{ raySourceRadius_ }; // Distance from center of raySource
 	static constexpr float rayLength_{ 300.f };
 
