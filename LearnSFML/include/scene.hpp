@@ -22,10 +22,10 @@ public:
 	virtual const sf::Drawable& GetShape() const = 0;
 	virtual ShapeType GetShapeType() const = 0;
 	virtual sf::Vector2f GetPosition() const = 0;
-	virtual float GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const = 0;
+	virtual float GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const = 0;
 
 	// Setter Functions
-	virtual void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) = 0;
+	virtual void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) = 0;
 
 	virtual ~SceneObject() = default;
 };
@@ -76,12 +76,12 @@ public:
 	const sf::Drawable& GetShape() const override;
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
-	float GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const override;
+	float GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const override;
 	float GetRadius() const;
 	bool IsOrbiting() const;
 
 	// Setter Functions
-	void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) override;
+	void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) override;
 };
 
 // Square
@@ -134,10 +134,10 @@ public:
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
 	sf::Angle GetRotationAngle() const;
-	float GetRayCollisionDistance(sf::Vector2f& rayOrigin, sf::Vector2f& rayDirection) const override;
+	float GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const override;
 	bool IsOrbiting() const;
 
 	// Setter Functions
-	void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition) override;
+	void SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) override;
 };
 #endif

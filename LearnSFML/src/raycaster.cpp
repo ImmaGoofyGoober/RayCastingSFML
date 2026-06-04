@@ -31,8 +31,8 @@ const sf::Drawable& RayCaster::GetRayVertices() const {
     return rayVertices_;
 }
 
-void RayCaster::UpateRayPositions() {
-    for (size_t i = 0; i < rayCount_; ++i) {
+void RayCaster::UpdateRayPositions() {
+    for (size_t i = 0; i < vertexCount_; ++i) {
         float angle = i;
         size_t rayStartIndex = i;
         size_t rayEndIndex = ++i;
@@ -52,21 +52,34 @@ void RayCaster::UpateRayPositions() {
 }
 
 void RayCaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObject>>& sceneObjects) {
-    for (size_t i = 0; i < rayCount_; ++i) {
+    for (size_t i = 0; i < vertexCount_; ++i) {
         float angle = i;
         size_t rayStartIndex = i;
         size_t rayEndIndex = ++i;
 
         float rayStartX = raySource_.getPosition().x + std::cos(angle) * rayDistance_;
         float rayStartY = raySource_.getPosition().y + std::sin(angle) * rayDistance_;
-
-        for (const auto& sceneObject : sceneObjects) {
-
-        }
-
         float rayEndX = rayStartX + std::cos(angle) * rayLength_;
         float rayEndY = rayStartY + std::sin(angle) * rayLength_;
-        rayVertices_[rayEndIndex].position = { rayEndX , rayEndY };
+
+        sf::Vector2f rayOrigin = { rayStartX, rayStartY };
+        sf::Vector2f rayDirection = { (rayEndX - rayStartX), (rayEndY - rayStartY) };
+
+        float closestCollisionDistance{ rayLength_ };
+        float currentCollisionDistance{};
+
+        for (const auto& sceneObject : sceneObjects) {
+            currentCollisionDistance = sceneObject->GetRayCollisionDistance(rayOrigin, rayDirection, rayLength_);
+
+            if (currentCollisionDistance < closestCollisionDistance) {
+                closestCollisionDistance = currentCollisionDistance;
+                // std::cout << "Collision Point Along Ray: " << closestCollisionDistance << "\n\n";
+            }   
+        }
+
+        float rayEndXX = rayStartX + std::cos(angle) * closestCollisionDistance;
+        float rayEndYY = rayStartY + std::sin(angle) * closestCollisionDistance;
+        rayVertices_[rayEndIndex].position = { rayEndXX , rayEndYY };
     }
 }
 

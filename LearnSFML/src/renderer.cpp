@@ -23,10 +23,10 @@
 
 void Renderer::InitializeScene() {
     // Circle
-    sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{0.f,0.f}, sf::Color::Blue, 180.f, 1.f, 0.004f, true));
+    sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{500.f,500.f}, sf::Color::Blue, 180.f, 1.f, 0.6f, true));
 
    // Square 
-    sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
+   // sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
 }
 
 void Renderer::StartSimulation() {
@@ -66,14 +66,14 @@ void Renderer::StartSimulation() {
             sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mouseScreenPosition);
 
             rayCaster.UpdateRaySource(mouseWorldPosition);
-            rayCaster.UpateRayPositions();
+            rayCaster.UpdateRayPositions();
         }
 
-        rayCaster.UpateRayPositions();
+        rayCaster.UpdateRayPositions();
         rayCaster.UpdateRayCollisions(sceneObjects_);
 
         for (const auto& sceneObject : sceneObjects_) {
-            sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition());
+            sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition(), deltaTime);
         }
 
         // Draw

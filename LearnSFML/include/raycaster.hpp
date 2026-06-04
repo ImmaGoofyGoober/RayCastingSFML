@@ -21,17 +21,17 @@ private:
 
 	// Ray
 	sf::VertexArray rayVertices_{};
-	static constexpr size_t rayCount_{ 6 }; // Represents vertex count, every two vertices is one ray
+	static constexpr size_t vertexCount_{ 4000 };
 	static constexpr float rayDistance_{ raySourceRadius_ }; // Distance from center of raySource
 	static constexpr float rayLength_{ 300.f };
 
 public:
-	RayCaster(sf::Vector2u windowSize) : raySource_(raySourceRadius_), rayVertices_(sf::PrimitiveType::Lines, rayCount_) {
+	RayCaster(sf::Vector2u windowSize) : raySource_(raySourceRadius_), rayVertices_(sf::PrimitiveType::Lines, vertexCount_) {
 		raySource_.setFillColor(sf::Color::Yellow);
 		raySource_.setOrigin({ raySource_.getRadius(), raySource_.getRadius() });
 		raySource_.setPosition({ windowSize.x / 2.f, windowSize.y / 2.f });
 
-		UpateRayPositions();
+		UpdateRayPositions();
 	}
 
 	// RaySource
@@ -41,7 +41,7 @@ public:
 
 	//Ray
 	const sf::Drawable& GetRayVertices() const;
-	void UpateRayPositions();
+	void UpdateRayPositions();
 	void UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObject>>& sceneObjects);
 
 };
