@@ -14,8 +14,8 @@ private:
 	bool mouseButtonLeftPressed_{ false };
 
 public:
-	void InitializeScene();
-	void StartSimulation();
+	RayCaster InitializeScene();
+	void StartSimulation(RayCaster& rayCaster);
 
 };
 

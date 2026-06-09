@@ -21,23 +21,26 @@
 #include "raycaster.hpp"
 
 
-void Renderer::InitializeScene() {
-    // Circle
-    sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{500.f,500.f}, sf::Color::Blue, 180.f, 1.f, 0.6f, true));
+RayCaster Renderer::InitializeScene() {
+    // RayCaster
+    RayCaster rayCaster(25.f, 400.f, 4000, {700.f, 300.f}, sf::Color::Yellow, sf::Color::Yellow); // raySourceRadius, rayLength, position, color
 
-   // Square 
-   // sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
+    // Circle
+    sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{500.f,500.f}, sf::Color::Blue, 180.f, 1.f, 0.6f, false));
+
+    // Square 
+    // sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
+
+    return rayCaster;
 }
 
-void Renderer::StartSimulation() {
+void Renderer::StartSimulation(RayCaster& rayCaster) {
     std::string title = "Ray Casting Simulation";
     sf::RenderWindow window(sf::VideoMode({1280, 720}), title, sf::Style::Default);
 	window.setFramerateLimit(60);
     
     sf::Clock clock;
     sf::Clock titleClock;
-
-    RayCaster rayCaster(window.getSize());
 
     while (window.isOpen()) {
         while (const std::optional<sf::Event> event = window.pollEvent()) {

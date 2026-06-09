@@ -41,13 +41,13 @@ void RayCaster::UpdateRayPositions() {
         float rayStartX = raySource_.getPosition().x + std::cos(angle) * rayDistance_;
         float rayStartY = raySource_.getPosition().y + std::sin(angle) * rayDistance_;
         rayVertices_[rayStartIndex].position = { rayStartX, rayStartY };
-        rayVertices_[rayStartIndex].color = sf::Color::Yellow;
+        rayVertices_[rayStartIndex].color = rayColor_;
 
         // End of ray
         float rayEndX = rayStartX + std::cos(angle) * rayLength_;
         float rayEndY = rayStartY + std::sin(angle) * rayLength_;
         rayVertices_[rayEndIndex].position = { rayEndX , rayEndY };
-        rayVertices_[rayEndIndex].color = sf::Color::Yellow;
+        rayVertices_[rayEndIndex].color = rayColor_;
     }
 }
 
@@ -56,7 +56,7 @@ void RayCaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObjec
         float angle = i;
         size_t rayStartIndex = i;
         size_t rayEndIndex = ++i;
-
+ 
         float rayStartX = raySource_.getPosition().x + std::cos(angle) * rayDistance_;
         float rayStartY = raySource_.getPosition().y + std::sin(angle) * rayDistance_;
         float rayEndX = rayStartX + std::cos(angle) * rayLength_;
