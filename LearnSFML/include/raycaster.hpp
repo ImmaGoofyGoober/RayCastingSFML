@@ -47,7 +47,6 @@ public:
 		sf::Vector2f position_{};
 		sf::Color raySourceColor_{};
 		size_t vertexCount_{};
-		float rayDistance_{};
 		float rayLength_{};
 		sf::Color rayColor_{};
 
