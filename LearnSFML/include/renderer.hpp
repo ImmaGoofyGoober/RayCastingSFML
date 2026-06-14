@@ -16,7 +16,6 @@ private:
 public:
 	RayCaster InitializeScene();
 	void StartSimulation(RayCaster& rayCaster);
-
 };
 
 #endif 

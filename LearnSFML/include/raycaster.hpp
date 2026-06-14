@@ -22,31 +22,51 @@ private:
 	// Ray
 	sf::VertexArray rayVertices_{};
 	size_t vertexCount_{};
-	float rayDistance_{}; // Distance from center of raySource
 	float rayLength_{};
 	sf::Color rayColor_{};
 
 public:
-	RayCaster(float raySourceRadius, float rayLength, size_t vertexCount, sf::Vector2f position, sf::Color raySourceColor, sf::Color rayColor)
-		: raySource_(raySourceRadius), 
-		raySourceRadius_(raySourceRadius), 
-		rayVertices_(sf::PrimitiveType::Lines, vertexCount), 
-		vertexCount_(vertexCount), 
-		rayDistance_(raySourceRadius),
+	RayCaster(float raySourceRadius, sf::Vector2f position, sf::Color raySourceColor, size_t vertexCount, float rayLength, sf::Color rayColor)
+		: raySource_(raySourceRadius),
+		raySourceRadius_(raySourceRadius),
+		rayVertices_(sf::PrimitiveType::Lines, vertexCount),
+		vertexCount_(vertexCount),
 		rayLength_(rayLength),
 		rayColor_(rayColor)
 	{
-		raySource_.setFillColor(raySourceColor);
-		raySource_.setOrigin({ raySource_.getRadius(), raySource_.getRadius() });
 		raySource_.setPosition(position);
+		raySource_.setOrigin({ raySourceRadius, raySourceRadius });
+		raySource_.setFillColor(raySourceColor);
 
 		UpdateRayPositions();
 	}
 
+	class Build {
+	private:
+		float raySourceRadius_{};
+		sf::Vector2f position_{};
+		sf::Color raySourceColor_{};
+		size_t vertexCount_{};
+		float rayDistance_{};
+		float rayLength_{};
+		sf::Color rayColor_{};
+
+	public:
+		Build& RaySourceRadius(float raySourceRadius) { raySourceRadius_ = raySourceRadius; return *this; };
+		Build& Position(const sf::Vector2f position) { position_ = position; return *this; };
+		Build& RaySourceColor(const sf::Color raySourceColor) { raySourceColor_ = raySourceColor; return *this; };
+		Build& VertexCount(size_t vertexCount) { vertexCount_ = vertexCount; return *this; };
+		Build& RayLength(float rayLength) { rayLength_ = rayLength; return *this; };
+		Build& RayColor(const sf::Color rayColor) { rayColor_ = rayColor; return *this; };
+
+		RayCaster build() { return RayCaster(raySourceRadius_, position_, raySourceColor_, vertexCount_, rayLength_, rayColor_); };
+	};
+
 	// RaySource
 	const sf::Drawable& GetRaySource() const;
+    float GetRaySourceRadius() const;
+	sf::Vector2f GetRaySourcePosition() const;
 	void UpdateRaySource(const sf::Vector2f mousePosition);
-	sf::Vector2f GetRaySourcePosition();
 
 	//Ray
 	const sf::Drawable& GetRayVertices() const;

@@ -18,14 +18,17 @@ const sf::Drawable& RayCaster::GetRaySource() const {
     return raySource_;
 };
 
-void RayCaster::UpdateRaySource(const sf::Vector2f mousePosition) {
-    raySource_.setPosition(mousePosition);
+float RayCaster::GetRaySourceRadius() const{
+    return raySourceRadius_;
 }
 
-sf::Vector2f RayCaster::GetRaySourcePosition() {
+sf::Vector2f RayCaster::GetRaySourcePosition() const{
     return raySource_.getPosition();
 }
 
+void RayCaster::UpdateRaySource(const sf::Vector2f mousePosition) {
+    raySource_.setPosition(mousePosition);
+}
 // Ray
 const sf::Drawable& RayCaster::GetRayVertices() const {
     return rayVertices_;
@@ -38,8 +41,8 @@ void RayCaster::UpdateRayPositions() {
         size_t rayEndIndex = ++i;
 
         // Start of ray
-        float rayStartX = raySource_.getPosition().x + std::cos(angle) * rayDistance_;
-        float rayStartY = raySource_.getPosition().y + std::sin(angle) * rayDistance_;
+        float rayStartX = raySource_.getPosition().x + std::cos(angle) * raySourceRadius_;
+        float rayStartY = raySource_.getPosition().y + std::sin(angle) * raySourceRadius_;
         rayVertices_[rayStartIndex].position = { rayStartX, rayStartY };
         rayVertices_[rayStartIndex].color = rayColor_;
 
@@ -57,8 +60,8 @@ void RayCaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObjec
         size_t rayStartIndex = i;
         size_t rayEndIndex = ++i;
  
-        float rayStartX = raySource_.getPosition().x + std::cos(angle) * rayDistance_;
-        float rayStartY = raySource_.getPosition().y + std::sin(angle) * rayDistance_;
+        float rayStartX = raySource_.getPosition().x + std::cos(angle) * raySourceRadius_;
+        float rayStartY = raySource_.getPosition().y + std::sin(angle) * raySourceRadius_;
         float rayEndX = rayStartX + std::cos(angle) * rayLength_;
         float rayEndY = rayStartY + std::sin(angle) * rayLength_;
 
