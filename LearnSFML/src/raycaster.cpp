@@ -1,8 +1,6 @@
 #include <cmath>
 #include <vector>
 #include <memory>
-#include <algorithm>
-#include <iostream>
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Vertex.hpp>

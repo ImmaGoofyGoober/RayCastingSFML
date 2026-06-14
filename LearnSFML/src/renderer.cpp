@@ -11,7 +11,7 @@
 #include <SFML/Window/WindowEnums.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <SFML/System/Angle.inl>
+#include <SFML/System/Angle.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>

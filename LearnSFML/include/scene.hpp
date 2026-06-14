@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <SFML/System/Vector2.hpp>
-#include<SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Angle.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
