@@ -43,34 +43,47 @@ private:
 	float orbitAngle_{};
 	const float orbitSpeed_{};
 
-	bool isMoving_{};
+	bool isMoving_{ false };
 
 public:
-	Circle(float radius, sf::Vector2f position, sf::Color color, bool isMoving)
+	Circle(float radius, sf::Vector2f position, sf::Color color, bool isOrbiting, float orbitDistance, float orbitAngle, float orbitSpeed, bool isMoving)
 		: circle_(radius),
 		radius_(radius),
 		color_(color),
-		isMoving_(isMoving)
-	{
-		circle_.setFillColor(color_);
-		circle_.setOrigin({ radius_, radius_ });
-		circle_.setPosition(position);
-	}
-
-	Circle(float radius, sf::Vector2f orbitPosition, sf::Color color, float orbitDistance, float orbitAngle, float orbitSpeed, bool isMoving)
-		: circle_(radius),
-		radius_(radius),
-		color_(color),
-		isOrbiting_(true),
+		isOrbiting_(isOrbiting),
 		orbitDistance_(orbitDistance),
 		orbitAngle_(orbitAngle),
 		orbitSpeed_(orbitSpeed),
 		isMoving_(isMoving)
 	{
-		circle_.setFillColor(color);
+		circle_.setPosition(position);
 		circle_.setOrigin({ radius, radius });
-		circle_.setPosition(orbitPosition);
+		circle_.setFillColor(color);
 	}
+
+	class Build {
+	private:
+		float radius_{};
+		sf::Color color_{};
+		sf::Vector2f position_{};
+		bool isOrbiting_{ false };
+		float orbitDistance_{};
+		float orbitAngle_{};
+		float orbitSpeed_{};
+		bool isMoving_{ false };
+
+	public:
+		Build& Radius(float radius) { radius_ = radius; return *this; };
+		Build& Position(const sf::Vector2f position) { position_ = position; return *this; };
+		Build& Color(const sf::Color color) { color_ = color; return *this; };
+		Build& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
+		Build& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
+		Build& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
+		Build& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
+		Build& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
+
+		Circle build() { return Circle(radius_, position_, color_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_, isMoving_); };
+	};
 
 	// Getter Functions
 	const sf::Drawable& GetShape() const override;

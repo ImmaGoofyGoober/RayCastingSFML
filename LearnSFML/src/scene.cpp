@@ -72,7 +72,7 @@ void Circle::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbit
 		float circleY = orbitPosition.y + std::sin(orbitAngle_) * orbitDistance_;
 		circle_.setPosition({ circleX, circleY });
 	}
-	else if(isMoving_){
+	else if (isMoving_) {
 		circle_.setPosition(position);
 	}
 }

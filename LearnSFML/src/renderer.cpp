@@ -24,7 +24,7 @@
 RayCaster Renderer::InitializeScene() {
     // RayCaster
     RayCaster rayCaster = RayCaster::Build()
-        .RaySourceRadius(10.f)
+        .RaySourceRadius(20.f)
         .Position({800.f, 500.f})
         .RaySourceColor(sf::Color::Yellow)
         .VertexCount(4000)
@@ -33,7 +33,17 @@ RayCaster Renderer::InitializeScene() {
         .build();
 
     // Circle
-    sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{500.f,500.f}, sf::Color::Blue, 180.f, 1.f, 0.6f, false));
+    sceneObjects_.push_back(std::make_unique<Circle>(Circle::Build()
+        .Radius(30.f)
+        .Position({ 500.f, 500.f })
+        .Color(sf::Color::Blue)
+        .IsOrbiting(true)
+        .IsMoving(true)
+        .OrbitDistance(200.f)
+        .OrbitAngle(1.f)
+        .OrbitSpeed(1.f)
+        .build()
+    ));
 
     // Square 
     // sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
@@ -79,9 +89,6 @@ void Renderer::StartSimulation(RayCaster& rayCaster) {
             rayCaster.UpdateRayPositions();
         }
 
-        rayCaster.UpdateRayPositions();
-        rayCaster.UpdateRayCollisions(sceneObjects_);
-
         for (const auto& sceneObject : sceneObjects_) {
             sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition(), deltaTime);
         }
@@ -90,6 +97,9 @@ void Renderer::StartSimulation(RayCaster& rayCaster) {
         for (const auto& sO : sceneObjects_) {
             window.draw(sO->GetShape());
         }
+
+        rayCaster.UpdateRayPositions();
+        rayCaster.UpdateRayCollisions(sceneObjects_);
 
         window.draw(rayCaster.GetRaySource());
         window.draw(rayCaster.GetRayVertices());
