@@ -23,7 +23,6 @@
 
 RayCaster Renderer::InitializeScene() {
     // RayCaster
-<<<<<<< HEAD
     RayCaster rayCaster = RayCaster::Build()
         .RaySourceRadius(10.f)
         .Position({800.f, 500.f})
@@ -32,9 +31,6 @@ RayCaster Renderer::InitializeScene() {
         .RayLength(350.f)
         .RayColor(sf::Color::Yellow)
         .build();
-=======
-    RayCaster rayCaster(25.f, 400.f, 4000, {700.f, 300.f}, sf::Color::Yellow, sf::Color::Yellow); 
->>>>>>> 5871549563ea63d761a42102381f4485d7c2f9d2
 
     // Circle
     sceneObjects_.push_back(std::make_unique<Circle>(30.f, sf::Vector2f{500.f,500.f}, sf::Color::Blue, 180.f, 1.f, 0.6f, false));
