@@ -37,24 +37,23 @@ private:
 	ShapeType shapeType_{ ShapeType::CIRCLE };
 	const float radius_{};
 	sf::Color color_{};
+	bool isMoving_{ false };
 
 	const bool isOrbiting_{ false };
 	const float orbitDistance_{};
 	float orbitAngle_{};
 	const float orbitSpeed_{};
 
-	bool isMoving_{ false };
-
 public:
-	Circle(float radius, sf::Vector2f position, sf::Color color, bool isOrbiting, float orbitDistance, float orbitAngle, float orbitSpeed, bool isMoving)
+	Circle(float radius, sf::Vector2f position, sf::Color color, bool isMoving, bool isOrbiting, float orbitDistance, float orbitAngle, float orbitSpeed)
 		: circle_(radius),
 		radius_(radius),
 		color_(color),
+		isMoving_(isMoving),
 		isOrbiting_(isOrbiting),
 		orbitDistance_(orbitDistance),
 		orbitAngle_(orbitAngle),
-		orbitSpeed_(orbitSpeed),
-		isMoving_(isMoving)
+		orbitSpeed_(orbitSpeed)
 	{
 		circle_.setPosition(position);
 		circle_.setOrigin({ radius, radius });
@@ -64,25 +63,25 @@ public:
 	class Build {
 	private:
 		float radius_{};
-		sf::Color color_{};
 		sf::Vector2f position_{};
+		sf::Color color_{};
+		bool isMoving_{ false };
 		bool isOrbiting_{ false };
 		float orbitDistance_{};
 		float orbitAngle_{};
 		float orbitSpeed_{};
-		bool isMoving_{ false };
 
 	public:
 		Build& Radius(float radius) { radius_ = radius; return *this; };
 		Build& Position(const sf::Vector2f position) { position_ = position; return *this; };
 		Build& Color(const sf::Color color) { color_ = color; return *this; };
+		Build& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
 		Build& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
 		Build& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
 		Build& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
 		Build& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
-		Build& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
 
-		Circle build() { return Circle(radius_, position_, color_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_, isMoving_); };
+		Circle build() { return Circle(radius_, position_, color_, isMoving_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_); };
 	};
 
 	// Getter Functions
@@ -105,42 +104,55 @@ private:
 	const float sideLength_{};
 	const sf::Angle rotationAngle_{};
 	sf::Color color_{};
+	bool isMoving_{ false };
 
 	const bool isOrbiting_{ false };
 	const float orbitDistance_{};
 	float orbitAngle_{};
 	const float orbitSpeed_{};
-	
-	bool isMoving_{};
 
 public:
-	Square(float sideLength, sf::Vector2f position, sf::Color color, sf::Angle rotationAngle, bool isMoving)
+	Square(float sideLength, sf::Vector2f position, sf::Angle rotationAngle, sf::Color color, bool isMoving, bool isOrbiting, float orbitDistance, float orbitAngle, float orbitSpeed)
 		: square_(sf::Vector2f{ sideLength, sideLength }),
 		sideLength_(sideLength),
 		rotationAngle_(rotationAngle),
 		color_(color),
-		isMoving_(isMoving)
+		isMoving_(isMoving),
+		isOrbiting_(isOrbiting),
+		orbitDistance_(orbitDistance),
+		orbitAngle_(orbitAngle),
+		orbitSpeed_(orbitSpeed)
 	{
 		square_.setFillColor(color);
 		square_.setPosition(position);
 		square_.setRotation(rotationAngle);
 	}
 
-	Square(float sideLength, sf::Vector2f position, sf::Color color, sf::Angle rotationAngle, float orbitDistance, float orbitAngle, float orbitSpeed, bool isMoving)
-		: square_(sf::Vector2f{ sideLength, sideLength }),
-		sideLength_(sideLength),
-		rotationAngle_(rotationAngle),
-		color_(color),
-		isOrbiting_(true),
-		orbitDistance_(orbitDistance),
-		orbitAngle_(orbitAngle),
-		orbitSpeed_(orbitSpeed),
-		isMoving_(isMoving)
-	{
-		square_.setFillColor(color);
-		square_.setPosition(position);
-		square_.setRotation(rotationAngle);
-	}
+	class Build {
+	private:
+		float sideLength_{};
+		sf::Vector2f position_{};
+		sf::Angle rotationAngle_{};
+		sf::Color color_{};
+		bool isMoving_{ false };
+		bool isOrbiting_{ false };
+		float orbitDistance_{};
+		float orbitAngle_{};
+		float orbitSpeed_{};
+
+	public:
+		Build& SideLength(float sideLength) { sideLength_ = sideLength; return *this; };
+		Build& Position(sf::Vector2f position) { position_ = position; return *this; };
+		Build& RotationAngle(sf::Angle rotationAngle) { rotationAngle_ = rotationAngle; return *this; };
+		Build& Color(sf::Color color) { color_ = color; return *this; };
+		Build& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
+		Build& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
+		Build& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
+		Build& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
+		Build& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
+
+		Square build() { return Square(sideLength_, position_, rotationAngle_, color_, isMoving_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_); };
+	};
 
 	// Getter Functions
 	const sf::Drawable& GetShape() const override;

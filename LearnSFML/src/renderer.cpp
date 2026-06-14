@@ -37,8 +37,8 @@ RayCaster Renderer::InitializeScene() {
         .Radius(30.f)
         .Position({ 500.f, 500.f })
         .Color(sf::Color::Blue)
-        .IsOrbiting(true)
         .IsMoving(true)
+        .IsOrbiting(true)
         .OrbitDistance(200.f)
         .OrbitAngle(1.f)
         .OrbitSpeed(1.f)
@@ -46,7 +46,18 @@ RayCaster Renderer::InitializeScene() {
     ));
 
     // Square 
-    // sceneObjects_.push_back(std::make_unique<Square>(60.f, sf::Vector2f{ 500.f, 500.f }, sf::Color::Red, sf::degrees(60.f), false));
+     sceneObjects_.push_back(std::make_unique<Square>(Square::Build()
+         .SideLength(40.f)
+         .Position({ 300.f, 300.f })
+         .RotationAngle(sf::degrees(35.f))
+         .Color(sf::Color::Red)
+         .IsMoving(false)
+         .IsOrbiting(false)
+         .OrbitDistance(0)
+         .OrbitAngle(0)
+         .OrbitSpeed(0)
+         .build()
+     ));
 
     return rayCaster;
 }

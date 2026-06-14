@@ -93,7 +93,7 @@ sf::Vector2f Square::GetPosition() const {
 float Square::GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const {
 	// check if square is rotated by comparing rotationAngle == 0.f
 
-	return 1.f;
+	return rayLength;
 };
 
 void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) {
