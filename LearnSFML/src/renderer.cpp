@@ -11,7 +11,7 @@
 #include <SFML/Window/WindowEnums.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <SFML/System/Angle.hpp>
+#include <SFML/System/Angle.inl>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
@@ -23,17 +23,17 @@
 
 RayCaster Renderer::InitializeScene() {
     // RayCaster
-    RayCaster rayCaster = RayCaster::Build()
+    RayCaster rayCaster = RayCaster::Builder()
         .RaySourceRadius(20.f)
         .Position({800.f, 500.f})
         .RaySourceColor(sf::Color::Yellow)
         .VertexCount(4000)
         .RayLength(350.f)
         .RayColor(sf::Color::Yellow)
-        .build();
+        .Build();
 
     // Circle
-    sceneObjects_.push_back(std::make_unique<Circle>(Circle::Build()
+    sceneObjects_.push_back(Circle::Builder()
         .Radius(30.f)
         .Position({ 500.f, 500.f })
         .Color(sf::Color::Blue)
@@ -42,11 +42,11 @@ RayCaster Renderer::InitializeScene() {
         .OrbitDistance(200.f)
         .OrbitAngle(1.f)
         .OrbitSpeed(1.f)
-        .build()
-    ));
+        .Build()
+    );
 
     // Square 
-     sceneObjects_.push_back(std::make_unique<Square>(Square::Build()
+     sceneObjects_.push_back(Square::Builder()
          .SideLength(40.f)
          .Position({ 300.f, 300.f })
          .RotationAngle(sf::degrees(35.f))
@@ -56,8 +56,8 @@ RayCaster Renderer::InitializeScene() {
          .OrbitDistance(0)
          .OrbitAngle(0)
          .OrbitSpeed(0)
-         .build()
-     ));
+         .Build()
+     );
 
     return rayCaster;
 }
@@ -91,7 +91,6 @@ void Renderer::StartSimulation(RayCaster& rayCaster) {
 
         window.clear(sf::Color::Black);
 
-        // Update
         if (mouseButtonLeftPressed_) {
             sf::Vector2i mouseScreenPosition = sf::Mouse::getPosition(window);
             sf::Vector2f mouseWorldPosition = window.mapPixelToCoords(mouseScreenPosition);
@@ -104,9 +103,8 @@ void Renderer::StartSimulation(RayCaster& rayCaster) {
             sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition(), deltaTime);
         }
 
-        // Draw
         for (const auto& sO : sceneObjects_) {
-            window.draw(sO->GetShape());
+            window.draw(*sO);
         }
 
         rayCaster.UpdateRayPositions();

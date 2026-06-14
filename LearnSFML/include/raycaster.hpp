@@ -41,7 +41,7 @@ public:
 		UpdateRayPositions();
 	}
 
-	class Build {
+	class Builder {
 	private:
 		float raySourceRadius_{};
 		sf::Vector2f position_{};
@@ -51,14 +51,14 @@ public:
 		sf::Color rayColor_{};
 
 	public:
-		Build& RaySourceRadius(float raySourceRadius) { raySourceRadius_ = raySourceRadius; return *this; };
-		Build& Position(const sf::Vector2f position) { position_ = position; return *this; };
-		Build& RaySourceColor(const sf::Color raySourceColor) { raySourceColor_ = raySourceColor; return *this; };
-		Build& VertexCount(size_t vertexCount) { vertexCount_ = vertexCount; return *this; };
-		Build& RayLength(float rayLength) { rayLength_ = rayLength; return *this; };
-		Build& RayColor(const sf::Color rayColor) { rayColor_ = rayColor; return *this; };
+		Builder& RaySourceRadius(float raySourceRadius) { raySourceRadius_ = raySourceRadius; return *this; };
+		Builder& Position(const sf::Vector2f position) { position_ = position; return *this; };
+		Builder& RaySourceColor(const sf::Color raySourceColor) { raySourceColor_ = raySourceColor; return *this; };
+		Builder& VertexCount(size_t vertexCount) { vertexCount_ = vertexCount; return *this; };
+		Builder& RayLength(float rayLength) { rayLength_ = rayLength; return *this; };
+		Builder& RayColor(const sf::Color rayColor) { rayColor_ = rayColor; return *this; };
 
-		RayCaster build() { return RayCaster(raySourceRadius_, position_, raySourceColor_, vertexCount_, rayLength_, rayColor_); };
+		RayCaster Build() { return RayCaster(raySourceRadius_, position_, raySourceColor_, vertexCount_, rayLength_, rayColor_); };
 	};
 
 	// RaySource

@@ -1,12 +1,16 @@
 #ifndef RAYCASTER_SCENE_HPP
 #define RAYCASTER_SCENE_HPP
 
+#include <memory>
+
 #include <SFML/System/Vector2.hpp>
 #include<SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Angle.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
 enum struct ShapeType {
 	CIRCLE,
@@ -14,12 +18,12 @@ enum struct ShapeType {
 };
 
 // Scene Objects
-class SceneObject {
+class SceneObject : public sf::Drawable {
 private:
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 public:
 	// Getter Functions
-	virtual const sf::Drawable& GetShape() const = 0;
 	virtual ShapeType GetShapeType() const = 0;
 	virtual sf::Vector2f GetPosition() const = 0;
 	virtual float GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const = 0;
@@ -33,6 +37,8 @@ public:
 // Circle
 class Circle : public SceneObject{
 private:
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+
 	sf::CircleShape circle_{};
 	ShapeType shapeType_{ ShapeType::CIRCLE };
 	const float radius_{};
@@ -60,7 +66,7 @@ public:
 		circle_.setFillColor(color);
 	}
 
-	class Build {
+	class Builder {
 	private:
 		float radius_{};
 		sf::Vector2f position_{};
@@ -72,20 +78,19 @@ public:
 		float orbitSpeed_{};
 
 	public:
-		Build& Radius(float radius) { radius_ = radius; return *this; };
-		Build& Position(const sf::Vector2f position) { position_ = position; return *this; };
-		Build& Color(const sf::Color color) { color_ = color; return *this; };
-		Build& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
-		Build& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
-		Build& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
-		Build& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
-		Build& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
+		Builder& Radius(float radius) { radius_ = radius; return *this; };
+		Builder& Position(const sf::Vector2f position) { position_ = position; return *this; };
+		Builder& Color(const sf::Color color) { color_ = color; return *this; };
+		Builder& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
+		Builder& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
+		Builder& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
+		Builder& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
+		Builder& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
 
-		Circle build() { return Circle(radius_, position_, color_, isMoving_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_); };
+		std::unique_ptr<Circle> Build() { return std::make_unique<Circle>(radius_, position_, color_, isMoving_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_); };
 	};
 
 	// Getter Functions
-	const sf::Drawable& GetShape() const override;
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
 	float GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const override;
@@ -99,6 +104,8 @@ public:
 // Square
 class Square : public SceneObject {
 private:
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+
 	sf::RectangleShape square_{};
 	ShapeType shapeType_{ ShapeType::SQUARE };
 	const float sideLength_{};
@@ -128,7 +135,7 @@ public:
 		square_.setRotation(rotationAngle);
 	}
 
-	class Build {
+	class Builder {
 	private:
 		float sideLength_{};
 		sf::Vector2f position_{};
@@ -141,21 +148,20 @@ public:
 		float orbitSpeed_{};
 
 	public:
-		Build& SideLength(float sideLength) { sideLength_ = sideLength; return *this; };
-		Build& Position(sf::Vector2f position) { position_ = position; return *this; };
-		Build& RotationAngle(sf::Angle rotationAngle) { rotationAngle_ = rotationAngle; return *this; };
-		Build& Color(sf::Color color) { color_ = color; return *this; };
-		Build& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
-		Build& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
-		Build& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
-		Build& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
-		Build& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
+		Builder& SideLength(float sideLength) { sideLength_ = sideLength; return *this; };
+		Builder& Position(sf::Vector2f position) { position_ = position; return *this; };
+		Builder& RotationAngle(sf::Angle rotationAngle) { rotationAngle_ = rotationAngle; return *this; };
+		Builder& Color(sf::Color color) { color_ = color; return *this; };
+		Builder& IsMoving(bool isMoving) { isMoving_ = isMoving; return *this; };
+		Builder& IsOrbiting(bool isOrbiting) { isOrbiting_ = isOrbiting; return *this; };
+		Builder& OrbitDistance(float orbitDistance) { orbitDistance_ = orbitDistance; return *this; };
+		Builder& OrbitAngle(float orbitAngle) { orbitAngle_ = orbitAngle; return *this; };
+		Builder& OrbitSpeed(float orbitSpeed) { orbitSpeed_ = orbitSpeed; return *this; };
 
-		Square build() { return Square(sideLength_, position_, rotationAngle_, color_, isMoving_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_); };
+		std::unique_ptr<Square> Build() { return std::make_unique<Square>(sideLength_, position_, rotationAngle_, color_, isMoving_, isOrbiting_, orbitDistance_, orbitAngle_, orbitSpeed_); };
 	};
 
 	// Getter Functions
-	const sf::Drawable& GetShape() const override;
 	ShapeType GetShapeType() const override;
 	sf::Vector2f GetPosition() const override;
 	sf::Angle GetRotationAngle() const;

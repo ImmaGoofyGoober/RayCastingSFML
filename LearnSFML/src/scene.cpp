@@ -1,16 +1,17 @@
 #include <cmath>
 
 #include <SFML/System/Vector2.hpp>
-#include<SFML/Graphics/Drawable.hpp>
-#include <SFML/System/Angle.hpp>
+#include <SFML/System/Angle.inl>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
 #include "scene.hpp"
 
 
 // Circle
-const sf::Drawable& Circle::GetShape() const {
-	return circle_;
-}
+void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	target.draw(circle_, states);
+};
 
 ShapeType Circle::GetShapeType() const {
 	return shapeType_;
@@ -78,9 +79,9 @@ void Circle::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbit
 }
 
 // Square
-const sf::Drawable& Square::GetShape() const {
-	return square_;
-}
+void Square::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	target.draw(square_, states);
+};
 
 ShapeType Square::GetShapeType() const {
 	return shapeType_;
