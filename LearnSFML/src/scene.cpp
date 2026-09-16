@@ -8,7 +8,7 @@
 
 #include "scene.hpp"
 
-#include <iostream>;
+
 // Circle
 void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(circle_, states);
