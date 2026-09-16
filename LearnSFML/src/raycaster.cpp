@@ -70,6 +70,18 @@ void RayCaster::UpdateRayCollisions(const std::vector<std::unique_ptr<SceneObjec
         float currentCollisionDistance{};
 
         for (const auto& sceneObject : sceneObjects) {
+
+
+
+
+
+            // put each shape type in it's own vector to loop over for simd!!!!!!!!!!
+
+            // use ray source origin and direcito nto only calculate collison distance for rays that do collide, for every shape
+
+            // then add triangle logic etc
+
+
             currentCollisionDistance = sceneObject->GetRayCollisionDistance(rayOrigin, rayDirection, rayLength_);
 
             if (currentCollisionDistance < closestCollisionDistance) {

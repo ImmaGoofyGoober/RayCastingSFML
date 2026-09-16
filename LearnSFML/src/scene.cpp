@@ -5,10 +5,11 @@
 #include <SFML/System/Angle.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/Transform.hpp>
 
 #include "scene.hpp"
 
-#include <iostream>;
+
 // Circle
 void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(circle_, states);
@@ -23,14 +24,15 @@ sf::Vector2f Circle::GetPosition() const{
 }
 
 float Circle::GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const {
+	sf::Vector2f circleOrigin = circle_.getPosition();
+
 	float directionLength = std::sqrt((rayDirection.x * rayDirection.x) + (rayDirection.y * rayDirection.y));
+	sf::Vector2f normalizedRayDirection = rayDirection / directionLength;
 
 	if (directionLength == 0.f) {
 		return rayLength;
 	}
 
-	sf::Vector2f normalizedRayDirection = rayDirection / directionLength;
-	sf::Vector2f circleOrigin = circle_.getPosition();
 	sf::Vector2f rayToCircle = { circleOrigin - rayOrigin };
 
 	float distanceToCircleCenter = std::sqrt(rayToCircle.x * rayToCircle.x + rayToCircle.y * rayToCircle.y);
@@ -93,48 +95,47 @@ sf::Vector2f Square::GetPosition() const {
 }
 
 float Square::GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, float rayLength) const {
-
-	if (rotationAngle_.asDegrees() != 0.f) {
-		// counter rotate square
-		sf::Transform inverseSquareTransform;
-	}
-	
-	float directionLength = std::sqrt((rayDirection.x * rayDirection.x) + (rayDirection.y * rayDirection.y));
-
-	sf::Vector2f normalizedRayDirection = rayDirection / directionLength;
-
-	float inverseRayDirectionX = 1.0 / normalizedRayDirection.x;
-	float inverseRayDirectionY = 1.0 / normalizedRayDirection.y;
-
 	sf::Vector2f squareOrigin = square_.getPosition();
-	float halfSideLength = sideLength_ * 0.5;
 
-	float nearXSquareDistance = (squareOrigin.x - halfSideLength) - rayOrigin.x;
-	float farXSquareDistance = (squareOrigin.x + halfSideLength) - rayOrigin.x;
-	float nearYSquareDistance = (squareOrigin.y - halfSideLength) - rayOrigin.y;
-	float farYSquareDistance = (squareOrigin.y + halfSideLength) - rayOrigin.y;
+	float directionLength = std::sqrt((rayDirection.x * rayDirection.x) + (rayDirection.y * rayDirection.y));
+	sf::Vector2f normalizedRayDirection = rayDirection / directionLength;
+	float halfSideLength = sideLength_ * 0.5f;
 
-	float scaledNearXRayDistance = nearXSquareDistance * inverseRayDirectionX;
-	float scaledFarXRayDistance = farXSquareDistance * inverseRayDirectionX;
-	float scaledNearYRayDistance = nearYSquareDistance * inverseRayDirectionY;
-	float scaledFarYRayDistance = farYSquareDistance * inverseRayDirectionY;
+	sf::Vector2f rayToSquare = squareOrigin - rayOrigin;
 
-	sf::Vector2f xCollisionBounds = { scaledNearXRayDistance, scaledFarXRayDistance };
-	sf::Vector2f yCollisionBounds = { scaledNearYRayDistance, scaledFarYRayDistance };
+	sf::Vector2f squareXAxis = {1.0f, 0.0f};
+	sf::Vector2f squareYAxis = {0.0f, 1.0f};
 
-	float xCollisionMin = std::min(xCollisionBounds.x, xCollisionBounds.y);
-	float xCollisionMax = std::max(xCollisionBounds.x, xCollisionBounds.y);
-	float yCollisionMin = std::min(yCollisionBounds.x, yCollisionBounds.y);
-	float yCollisionMax = std::max(yCollisionBounds.x, yCollisionBounds.y);
+	if (rotationAngle_.asRadians() != 0.f) {
+		squareXAxis = { std::cos(rotationAngle_.asRadians()), std::sin(rotationAngle_.asRadians()) };
+		squareYAxis = { -std::sin(rotationAngle_.asRadians()), std::cos(rotationAngle_.asRadians()) };
+	}
+
+	float alignedRayToSquareDistanceX = (rayToSquare.x * squareXAxis.x) + (rayToSquare.y * squareXAxis.y);
+	float alignedRayToSquareDistanceY = (rayToSquare.x * squareYAxis.x) + (rayToSquare.y * squareYAxis.y);
+
+	float scalarX = (normalizedRayDirection.x * squareXAxis.x) + (normalizedRayDirection.y * squareXAxis.y);
+	float scalarY = (normalizedRayDirection.x * squareYAxis.x) + (normalizedRayDirection.y * squareYAxis.y);
+
+	float scaledNearDistanceX = (alignedRayToSquareDistanceX - halfSideLength) / scalarX;
+	float scaledFarDistanceX = (alignedRayToSquareDistanceX + halfSideLength) / scalarX;
+	float scaledNearDistanceY = (alignedRayToSquareDistanceY - halfSideLength) / scalarY;
+	float scaledFarDistanceY = (alignedRayToSquareDistanceY + halfSideLength) / scalarY;
+
+	float xCollisionMin = std::min(scaledNearDistanceX, scaledFarDistanceX);
+	float xCollisionMax = std::max(scaledNearDistanceX, scaledFarDistanceX);
+	float yCollisionMin = std::min(scaledNearDistanceY, scaledFarDistanceY);
+	float yCollisionMax = std::max(scaledNearDistanceY, scaledFarDistanceY);
 
 	float nearCollision = std::max(xCollisionMin, yCollisionMin);
 	float farCollision = std::min(xCollisionMax, yCollisionMax);
-
-	//
+	
 	if (nearCollision <= farCollision && farCollision >= 0.f && nearCollision <= rayLength) {
 		return nearCollision;
 	}
-	return rayLength;
+	else {
+		return rayLength;
+	}
 };
 
 void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) {
