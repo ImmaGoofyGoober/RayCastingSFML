@@ -132,6 +132,7 @@ public:
 	{
 		square_.setFillColor(color);
 		square_.setPosition(position);
+		square_.setOrigin({ sideLength /2, sideLength /2 });
 		square_.setRotation(rotationAngle);
 	}
 

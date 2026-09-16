@@ -27,7 +27,7 @@ RayCaster Renderer::InitializeScene() {
         .RaySourceRadius(20.f)
         .Position({800.f, 500.f})
         .RaySourceColor(sf::Color::Yellow)
-        .VertexCount(4000)
+        .VertexCount(14000)
         .RayLength(350.f)
         .RayColor(sf::Color::Yellow)
         .Build();
@@ -46,18 +46,13 @@ RayCaster Renderer::InitializeScene() {
     );
 
     // Square 
-     sceneObjects_.push_back(Square::Builder()
-         .SideLength(40.f)
-         .Position({ 300.f, 300.f })
-         .RotationAngle(sf::degrees(35.f))
-         .Color(sf::Color::Red)
-         .IsMoving(false)
-         .IsOrbiting(false)
-         .OrbitDistance(0)
-         .OrbitAngle(0)
-         .OrbitSpeed(0)
-         .Build()
-     );
+    sceneObjects_.push_back(Square::Builder()
+        .SideLength(50.f)
+        .Position({ 200.f, 400.f })
+        .Color(sf::Color::Red)
+        .Build()
+    );
+    
 
     return rayCaster;
 }
