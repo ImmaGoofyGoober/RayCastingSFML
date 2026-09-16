@@ -50,6 +50,7 @@ RayCaster Renderer::InitializeScene() {
         .SideLength(50.f)
         .Position({ 200.f, 400.f })
         .Color(sf::Color::Red)
+        .RotationAngle(sf::degrees(25.f))
         .Build()
     );
     
