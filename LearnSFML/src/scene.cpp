@@ -13,7 +13,7 @@
 // Circle
 void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(circle_, states);
-};
+}
 
 ShapeType Circle::GetShapeType() const {
 	return shapeType_;
@@ -59,7 +59,7 @@ float Circle::GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::V
 	else {
 		return rayLength;
 	}
-};
+}
 
 float Circle::GetRadius() const {
 	return radius_;
@@ -67,7 +67,7 @@ float Circle::GetRadius() const {
 
 bool Circle::IsOrbiting() const {
 	return isOrbiting_;
-};
+}
 
 void Circle::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) {
 	if (isMoving_ && isOrbiting_) {
@@ -136,7 +136,7 @@ float Square::GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::V
 	else {
 		return rayLength;
 	}
-};
+}
 
 void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbitPosition, float deltaTime) {
 	if (isMoving_ && isOrbiting_) {
@@ -152,8 +152,8 @@ void Square::SetPosition(const sf::Vector2f& position, const sf::Vector2f& orbit
 
 bool Square::IsOrbiting() const {
 	return isOrbiting_;
-};
+}
 
 sf::Angle Square::GetRotationAngle() const {
 	return rotationAngle_;
-};
+}	

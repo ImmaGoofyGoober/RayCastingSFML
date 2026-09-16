@@ -14,7 +14,7 @@
 // Ray Source
 const sf::Drawable& RayCaster::GetRaySource() const {
     return raySource_;
-};
+}
 
 float RayCaster::GetRaySourceRadius() const{
     return raySourceRadius_;
