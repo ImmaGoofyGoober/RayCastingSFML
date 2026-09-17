@@ -9,7 +9,7 @@
 
 class Renderer {
 private:
-	std::vector<std::unique_ptr<SceneObject>> sceneObjects_;
+	std::vector<std::unique_ptr<SceneObject>> sceneObjects_{};
 
 	bool mouseButtonLeftPressed_{ false };
 

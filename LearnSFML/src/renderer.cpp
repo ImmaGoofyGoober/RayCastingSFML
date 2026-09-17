@@ -1,11 +1,10 @@
 #include <iostream>
-#include <memory>
 #include <optional>
 #include <sstream>
 #include <string>
 #include <iomanip> 
+#include <ranges>
 
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowEnums.hpp>
@@ -54,14 +53,13 @@ RayCaster Renderer::InitializeScene() {
         .Build()
     );
     
-
     return rayCaster;
 }
 
 void Renderer::StartSimulation(RayCaster& rayCaster) {
     std::string title = "Ray Casting Simulation";
     sf::RenderWindow window(sf::VideoMode({1280, 720}), title, sf::Style::Default);
-	window.setFramerateLimit(60);
+	//window.setFramerateLimit(60);
     
     sf::Clock clock;
     sf::Clock titleClock;
@@ -97,12 +95,9 @@ void Renderer::StartSimulation(RayCaster& rayCaster) {
 
         for (const auto& sceneObject : sceneObjects_) {
             sceneObject->SetPosition(sf::Vector2f{}, rayCaster.GetRaySourcePosition(), deltaTime);
+            window.draw(*sceneObject);
         }
-
-        for (const auto& sO : sceneObjects_) {
-            window.draw(*sO);
-        }
-
+        
         rayCaster.UpdateRayPositions();
         rayCaster.UpdateRayCollisions(sceneObjects_);
 

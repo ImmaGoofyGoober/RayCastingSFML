@@ -103,8 +103,8 @@ float Square::GetRayCollisionDistance(const sf::Vector2f& rayOrigin, const sf::V
 
 	sf::Vector2f rayToSquare = squareOrigin - rayOrigin;
 
-	sf::Vector2f squareXAxis = {1.0f, 0.0f};
-	sf::Vector2f squareYAxis = {0.0f, 1.0f};
+	sf::Vector2f squareXAxis = { 1.0f, 0.0f };
+	sf::Vector2f squareYAxis = { 0.0f, 1.0f };
 
 	if (rotationAngle_.asRadians() != 0.f) {
 		squareXAxis = { std::cos(rotationAngle_.asRadians()), std::sin(rotationAngle_.asRadians()) };

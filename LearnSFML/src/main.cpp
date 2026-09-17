@@ -1,7 +1,6 @@
 #include "renderer.hpp"
 #include "raycaster.hpp"
 
-
 int main() {
     Renderer renderer;
 
@@ -11,5 +10,4 @@ int main() {
 
     return 0;
 }
-
 
