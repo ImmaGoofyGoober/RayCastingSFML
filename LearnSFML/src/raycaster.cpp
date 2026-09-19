@@ -2,10 +2,8 @@
 #include <vector>
 #include <memory>
 
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics/Vertex.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Color.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "raycaster.hpp"
 #include "scene.hpp"

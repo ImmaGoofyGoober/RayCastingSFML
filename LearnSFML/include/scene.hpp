@@ -3,14 +3,8 @@
 
 #include <memory>
 
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/System/Angle.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 enum struct ShapeType {
 	CIRCLE,

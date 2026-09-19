@@ -1,0 +1,21 @@
+# ninja log v7
+3	55	8115090215161815	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	8279cad30565d801
+3	55	8115090215161815	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	8279cad30565d801
+55	16565	8115090380270617	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	16e32140f51b21e5
+55	16565	8115090380270617	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	16e32140f51b21e5
+4	113	8115093494006081	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	48c3844e3ebde5ba
+4	113	8115093494006081	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	48c3844e3ebde5ba
+114	167	8115093495572967	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	d690084a77135832
+114	167	8115093495572967	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	d690084a77135832
+167	216	8115093496067721	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	854b60f6a62ddb94
+167	216	8115093496067721	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	854b60f6a62ddb94
+216	262	8115093496528025	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	39f10395c18376f6
+216	262	8115093496528025	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	39f10395c18376f6
+262	310	8115093497013775	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	a5bb1b1a39b9d61
+262	310	8115093497013775	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	a5bb1b1a39b9d61
+311	361	8115093497523344	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	2fbb8bb53cbc215b
+311	361	8115093497523344	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	2fbb8bb53cbc215b
+361	425	8115093498163285	CMakeFiles/freetype-populate-complete	2902ab1e717fa9e
+361	425	8115093498163285	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	2902ab1e717fa9e
+361	425	8115093498163285	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete	2902ab1e717fa9e
+361	425	8115093498163285	C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	2902ab1e717fa9e

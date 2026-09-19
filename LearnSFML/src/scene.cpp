@@ -1,11 +1,8 @@
 #include <cmath>
 #include <algorithm>
 
-#include <SFML/System/Vector2.hpp>
-#include <SFML/System/Angle.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/Transform.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "scene.hpp"
 

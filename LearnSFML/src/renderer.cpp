@@ -5,15 +5,9 @@
 #include <iomanip> 
 #include <ranges>
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/VideoMode.hpp>
-#include <SFML/Window/WindowEnums.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/System/Angle.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/Window/Event.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
 #include "renderer.hpp"
 #include "scene.hpp"
@@ -59,7 +53,7 @@ RayCaster Renderer::InitializeScene() {
 void Renderer::StartSimulation(RayCaster& rayCaster) {
     std::string title = "Ray Casting Simulation";
     sf::RenderWindow window(sf::VideoMode({1280, 720}), title, sf::Style::Default);
-	//window.setFramerateLimit(60);
+	window.setFramerateLimit(60);
     
     sf::Clock clock;
     sf::Clock titleClock;

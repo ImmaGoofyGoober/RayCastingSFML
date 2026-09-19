@@ -4,12 +4,8 @@
 #include <memory>
 #include <vector>
 
-#include <SFML/System/Vector2.hpp>
-#include<SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/PrimitiveType.hpp>
-#include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "scene.hpp"
 
