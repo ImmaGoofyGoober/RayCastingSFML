@@ -1,8 +1,0 @@
-[
-{
-  "directory": "C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Release",
-  "command": "C:\\PROGRA~1\\MICROS~2\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo -DSB_CONFIG_UNITY -IC:\\Users\\ethan\\source\\repos\\LearnSFML\\LearnSFML\\out\\build\\x64-Release\\_deps\\sheenbidi-src\\Headers -IC:\\Users\\ethan\\source\\repos\\LearnSFML\\LearnSFML\\out\\build\\x64-Release\\_deps\\sheenbidi-src\\Source /DWIN32 /D_WINDOWS /Zi /O2 /Ob1 /DNDEBUG -MD /utf-8 -w /Fo_deps\\sheenbidi-build\\CMakeFiles\\SheenBidi.dir\\Source\\SheenBidi.c.obj /Fd_deps\\sheenbidi-build\\CMakeFiles\\SheenBidi.dir\\ /FS -c C:\\Users\\ethan\\source\\repos\\LearnSFML\\LearnSFML\\out\\build\\x64-Release\\_deps\\sheenbidi-src\\Source\\SheenBidi.c",
-  "file": "C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Release/_deps/sheenbidi-src/Source/SheenBidi.c",
-  "output": "C:/Users/ethan/source/repos/LearnSFML/LearnSFML/out/build/x64-Release/_deps/sheenbidi-build/CMakeFiles/SheenBidi.dir/Source/SheenBidi.c.obj"
-}
-]
